@@ -1,0 +1,150 @@
+import java.util.Scanner;
+
+public class StoreRunner {
+  public static void main(String[] args) {
+//instantiates candy and chocolate objects
+    chocolate dandelion = new chocolate("Bitter", "Light Brown", 95, 8.99, true, 55) ; //creating new choclate object:Dandelion
+    candy skittles = new candy("Sour Sweet", "Multicolored", 320, 6.49, 40) ; //creating new candy object:Skittles
+    // Creates a Scanner object - feel free to delete if not using!
+    Scanner input = new Scanner(System.in);
+//describes stats for skittles candy
+    System.out.println("Skittles: Sour");
+    System.out.println("Skittles Flavor: " + skittles.getFlavor());
+    System.out.println("Skittles Color: " + skittles.getColor());
+    System.out.println("Skittles Calories: " + skittles.getCalories());
+    System.out.println("Skittles Price: " + skittles.getPrice());
+    System.out.println("Skittles added sugar: " + skittles.getPrice());
+
+    System.out.println("");
+     System.out.println("--------------------");
+    System.out.println("");
+    //seperates the candy and choclate objects and then prints first version of chocolate stats
+System.out.println("Dandelion: Original");
+    System.out.println("Dandelion Flavor: " + dandelion.getFlavor());
+    System.out.println("Dandelion Color: " + dandelion.getColor());
+    System.out.println("Dandelion Calories: " + skittles.getCalories());
+    System.out.println("Dandelion Price: " + dandelion.getPrice());
+    System.out.println("Dandelion is Farm Grown: " + dandelion.getFarmGrown());
+    System.out.println("Dandelion Coco Percent: " + dandelion.getCocoPercent());
+
+    System.out.println("");
+    System.out.println("--------------------");
+    System.out.println("");
+    //seperates the first chocolate stats and the first update ones are printed
+
+    dandelion.setFlavor("Sweet with Bitter after-taste");
+    
+    System.out.println("Dandelion: Updated");
+    System.out.println("Dandelion Flavor: " + dandelion.getFlavor());
+    System.out.println("Dandelion Color: " + dandelion.getColor());
+    System.out.println("Dandelion Calories: " + skittles.getCalories());
+    System.out.println("Dandelion Price: " + dandelion.getPrice());
+    System.out.println("Dandelion is Farm Grown: " + dandelion.getFarmGrown());
+    System.out.println("Dandelion Coco Percent: " + dandelion.getCocoPercent());   
+//allows user to input new flavor for their dandelion chocolate
+System.out.print("Enter a new Flavor for your Dandelion chocolate: ");
+String newFlavor = input.nextLine();
+
+dandelion.setFlavor(newFlavor);
+System.out.println("Dandelion Flavor: " + dandelion.getFlavor());
+    //prints new flavor for the updates chocolate
+
+    
+
+
+
+
+    // Closes the Scanner object
+    input.close();
+    
+  }
+}
+//treatVan reppresents and white van that travels around and sells treats to kids that are walking alone
+
+public class treat {
+
+  private String flavor;      // the flavor of the treat
+  private String color;       // the color of the treat
+  private int calories;       // the amount of calories in a treat
+  private double price;       // the price of the treat
+
+  //default treat statistics
+  public treat() {
+    this("Blue Raspberry", "purple", 120, 4.99);
+  }
+//setting a specific treat's statistics
+  public treat(String flavor, String color, int calories, double price) {
+    this.flavor = flavor;
+    this.color = color;
+    this.calories = calories;
+    this.price = price;
+  }
+//returns the flavor od the treat
+  public String getFlavor() {
+    return flavor;
+  }
+  //reutrns the color of the treat
+  public String getColor() {
+    return color;
+  }
+  //returns the calories of the treat
+  public int getCalories() {
+    return calories;
+  }
+  //returns the price of the treat
+  public double getPrice() {
+    return price;
+  }
+  //sets the flavor of the treat
+  public void setFlavor(String newFlavor){
+    flavor = newFlavor;
+  }
+  public String toString() { //Returns the color of the treat and thre color accordingly
+  return color + " (" + flavor + ")";
+}
+  
+}
+public class chocolate extends treat {
+
+  private boolean farmGrown;    //tells whether the chocolate is grown on a farm or not
+  private int cocoPercent;       //tells the percentage of coco in the chocolate
+
+  public chocolate() {
+    farmGrown = true;
+    cocoPercent = 35;
+  }
+
+  
+  public chocolate(String flavor, String color, int calories, double price, boolean farmGrown, int cocoPercent) {
+     super(flavor, color, calories, price);
+    this.farmGrown = farmGrown;
+    this.cocoPercent = cocoPercent;
+  }
+  public int getCocoPercent() {
+    return cocoPercent;
+  }
+   public boolean getFarmGrown() {
+    return farmGrown;
+  }
+public String toString() {
+  return super.toString() + "\nCoco percent: " + cocoPercent;
+}
+  
+}
+public class candy extends treat {
+
+private int addedSugar;       //tells the amount of sugar added
+
+  public candy() {
+    addedSugar = 40;
+  }
+
+  public candy(String flavor, String color, int calories, double price, int addedSugar) {
+    super(flavor, color, calories, price);
+    this.addedSugar = addedSugar;
+  }
+  public int getAddedSugar() {
+    return addedSugar;
+  }
+  
+}
