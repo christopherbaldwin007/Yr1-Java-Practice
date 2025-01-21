@@ -1,0 +1,541 @@
+public class DataRunner {
+
+    public static void runDataAnalysis() {
+        // Create an instance of BirdDataAnalyzer and provide file names
+        BirdDataAnalyzer birdDataAnalyzer = new BirdDataAnalyzer("names.txt", "diets.txt", "colors.txt", "status.txt");
+
+        // Display general information about the bird data
+        System.out.println(birdDataAnalyzer.toString());
+
+        // Display birds and their associated colors
+        System.out.println("Birds and their associated colors:");
+        birdDataAnalyzer.associateBirdsWithColors();
+
+        // Display birds and their conservation status
+        System.out.println("Birds and their conservation status:");
+        birdDataAnalyzer.associateBirdsWithStatus();
+
+        // Find bird with the maximum wing span (placeholder message)
+        String maxWingSpanBird = birdDataAnalyzer.findBirdWithMaxWingSpan();
+        System.out.println("Bird with Maximum Wing Span: " + maxWingSpanBird);
+    }
+}
+import java.util.Scanner;
+
+public class BirdDataAnalyzer {
+
+    public String[] birdNames;
+    public String[] diets;
+    public String[] colors;
+    public String[] conservationStatus;
+
+    public BirdDataAnalyzer() {
+this("Blue Jay", "nuts", "Blue", "Least Concern");
+    }
+
+    public BirdDataAnalyzer(String birdNamesFile, String dietsFile, String colorsFile, String statusFile) {
+        this.birdNames = readFromFile(birdNamesFile);
+        this.diets = readFromFile(dietsFile);
+        this.colors = readFromFile(colorsFile);
+        this.conservationStatus = readFromFile(statusFile);
+    }
+
+    public String findBirdWithMaxWingSpan() {
+        return "Not implemented yet.";
+    }
+
+    public void associateBirdsWithColors() {
+        for (int i = 0; i < birdNames.length && i < colors.length; i++) {
+            System.out.println("Bird: " + birdNames[i] + ", Color: " + colors[i]);
+        }
+    }
+
+    public void associateBirdsWithStatus() {
+        for (int i = 0; i < birdNames.length && i < conservationStatus.length; i++) {
+            System.out.println("Bird: " + birdNames[i] + ", Status: " + conservationStatus[i]);
+        }
+    }
+
+    public String toString() {
+        return "BirdDataAnalyzer: " +
+                "\nNumber of Birds: " + birdNames.length +
+                "\nNumber of Diets: " + diets.length +
+                "\nNumber of Colors: " + colors.length +
+                "\nNumber of Conservation Status: " + conservationStatus.length;
+    }
+
+    private String[] readFromFile(String filename) {
+        try (Scanner scanner = new Scanner(new java.io.File(filename))) {
+            StringBuilder contentBuilder = new StringBuilder();
+            while (scanner.hasNextLine()) {
+                contentBuilder.append(scanner.nextLine()).append("\n");
+            }
+            return contentBuilder.toString().split("\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new String[0];
+        }
+    }
+
+    private void initializeWithSpecificValues() {
+        String birdNamesFile = "names.txt";
+        String dietsFile = "diets.txt";
+        String colorsFile = "colors.txt";
+        String statusFile = "status.txt";
+
+        this.birdNames = getSpecificValueFromFile(birdNamesFile, 0);
+        this.diets = getSpecificValueFromFile(dietsFile, 0);
+        this.colors = getSpecificValueFromFile(colorsFile, 0);
+        this.conservationStatus = getSpecificValueFromFile(statusFile, 0);
+    }
+
+    private String[] getSpecificValueFromFile(String filename, int index) {
+        String[] data = readFromFile(filename);
+        return data.length > index ? new String[]{data[index]} : new String[]{"Default"};
+    }
+}
+import java.util.Scanner;
+
+public class UserStory {
+
+    public static void main(String[] args) {
+        BirdDataAnalyzer birdDataAnalyzer = new BirdDataAnalyzer("names.txt", "diets.txt", "colors.txt", "status.txt");
+
+        System.out.println("Welcome to the Avian Veterinary Student Data Analysis Program!");
+        System.out.println(birdDataAnalyzer.toString());
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            quizUserOnBirdDescriptors(birdDataAnalyzer, scanner);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void quizUserOnBirdDescriptors(BirdDataAnalyzer birdDataAnalyzer, Scanner scanner) {
+        System.out.println("\nLet's quiz you on bird colors!");
+        for (int i = 0; i < birdDataAnalyzer.birdNames.length; i++) {
+            System.out.print("What color is the bird '" + birdDataAnalyzer.birdNames[i] + "'? ");
+            String userColor = scanner.nextLine().trim().toLowerCase();
+
+            if (userColor.equals(birdDataAnalyzer.colors[i].toLowerCase())) {
+                System.out.println("Correct!");
+            } else {
+                System.out.println("Incorrect. The correct color is: " + birdDataAnalyzer.colors[i]);
+            }
+        }
+
+        System.out.println("\nNow, let's quiz you on bird diets!");
+        for (int i = 0; i < birdDataAnalyzer.birdNames.length; i++) {
+            System.out.print("What is the diet of the bird '" + birdDataAnalyzer.birdNames[i] + "'? ");
+            String userDiet = scanner.nextLine().trim().toLowerCase();
+
+            if (userDiet.equals(birdDataAnalyzer.diets[i].toLowerCase())) {
+                System.out.println("Correct!");
+            } else {
+                System.out.println("Incorrect. The correct diet is: " + birdDataAnalyzer.diets[i]);
+            }
+        }
+
+        System.out.println("\nThank you for using the Avian Veterinary Student Data Analysis Program!");
+    }
+}
+{names.txt
+American Goldfinch
+American Purple Gallinule
+American Redstart
+Amsterdam Albatross
+Arctic Tern
+Bald Eagle
+Belted Kingfisher
+Black-Crowned Night Heron
+Blue Footed Booby
+Blue Jay
+Blue Manakin
+Bokikokiko
+Brown Creeper
+Buff-Spotted Flufftail
+Bumblebee Hummingbird
+Carolina Wren
+Cave Swallow
+Common Buttonquail
+Common Ostrich
+Common Pheasant
+Common Raven
+Common Sandpiper
+Crested Caracara
+Dark-Eyed Junco
+Double-Crested Cormorant
+Eastern Screech Owl
+Eastern Whip-Poor-Will
+Elegant Sunbird
+Elegant Trogon
+Emperor Goose
+Flame Bowerbird
+Fork-Tailed Flycatcher
+Gambel's Quail
+Golden White-Eye
+Gouldian Finch
+Great Blue Heron
+Great Curassow
+Great Frigatebird
+Great Hornbill
+Great Potoo
+Great White Pelican
+Greater Flamingo
+Harpy Eagle
+Hawaiian Stilt
+Hoatzin
+Kakapo
+King Vulture
+Laughing Falcon
+Laughing Kookaburra
+Lear's Macaw
+Little Spotted Kiwi
+Macaroni Penguin
+Mallard
+Mourning Dove
+Narcissus Flycatcher
+Nene
+Northern Cardinal
+Ovenbird
+Peregrine Falcon
+Pied Avocet
+Pileated Woodpecker
+Pink Robin
+Pinyon Jay
+Razorbill
+Red-Billed Oxpecker
+Red-Breasted Nuthatch
+Red-Tailed Tropicbird
+Red-Whiskered Bulbul
+Regent Honeyeater
+Ring-Billed Gull
+Rock Dove
+Roseate Spoonbill
+Rose-Breasted Gosbeak
+Ruby-Crowned Kinglet
+Ruby-Throated Hummingbird
+Rudd's Lark
+Scarlet Tanager
+Secretarybird
+Sharp-Shinned Hawk
+Shoebill
+Sierra Madre Sparrow
+Smooth-Billed Ani
+Snail Kite
+Snowy Owl
+Spoon-Billed Sandpiper
+Superb Bird-of-Paradise
+Tawny Frogmouth
+Toco Toucan
+Tricolored Blackbird
+Tufted Puffin
+Victoria Crowned Pigeon
+Violet-Backed Starling
+Vulturine Guineafowl
+White Wagtail
+Whooping Crane
+Wilson's Bird-Of-Paradise
+Wood Duck
+Yellow Bellied Sapsucker
+}
+{Status.txt
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Least Concern
+Near Threatened
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Near Threatened
+Least Concern
+Vulnerable
+Least Concern
+Near Threatened
+Least Concern
+Least Concern
+Least Concern
+Near Threatened
+Endangered
+Least Concern
+Critically Endangered
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Near Threatened
+Vulnerable
+Least Concern
+Least Concern
+Least Concern
+Vulnerable
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Vulnerable
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Critically Endangered
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Least Concern
+Vulnerable
+Least Concern
+Vulnerable
+Least Concern
+Vulnerable
+Endangered
+Least Concern
+Least Concern
+Vulnerable
+Critically Endangered
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Least Concern
+Near Threatened
+Least Concern
+Least Concern
+Least Concern
+Endangered
+Near Threatened
+Least Concern
+Least Concern
+}
+{Colors.txt
+Yellow
+Blue
+Black
+Black
+White
+Brown
+Grey
+Grey
+White
+Blue
+Blue
+Grey
+Brown
+Black
+Green
+Brown
+Brown
+Brown
+Black
+Brown
+Black
+White
+Brown
+Black
+Black
+Brown
+Brown
+Yellow
+Red
+Grey
+Yellow
+White
+Blue
+Yellow
+Green
+Grey
+Black
+Black
+Black
+Brown
+White
+Pink
+Grey
+Black
+Brown
+Green
+White
+Brown
+Brown
+Blue
+Brown
+White
+Brown
+Brown
+Yellow
+Brown
+Red
+Brown
+Grey
+White
+Black
+Pink
+Blue
+White
+Brown
+Grey
+White
+Brown
+Black
+White
+Grey
+Pink
+White
+Brown
+Green
+Brown
+Red
+White
+Brown
+Grey
+Brown
+Black
+Grey
+White
+Brown
+Black
+Brown
+Black
+Black
+Black
+Blue
+Pink
+Blue
+White
+White
+Red
+Brown
+Black
+}
+{diets.txt
+seeds
+frogs
+flying insects
+squid
+fish
+fish
+fish
+fish
+fish
+nuts
+fruit
+flies
+insects
+ants
+nectar
+insects
+flying insects
+seeds
+seeds
+fruit
+carrion
+larvae
+carcasses
+seeds
+fish
+insects
+flying insects
+insects
+insects
+shoots
+fruit
+flying insects
+insects
+insects
+seeds
+fish
+fruits
+fish
+fruit
+flying insects
+fish
+plankton
+monkeys
+fish
+leaves
+plants
+carcasses
+snakes
+mice
+licuri palm nuts
+grubs
+crustaceans
+insects
+seeds
+Insects
+leaves
+seeds
+insects
+pigeons
+crustaceans
+insects
+spiders
+pinyon seeds
+fish
+blood
+insects
+squid
+fruit
+eucalyptus nectar
+insects
+fruits
+crustaceans
+insects
+insects
+flower nectar
+insects
+insects
+insects
+birds
+fish
+insects
+insects
+snails
+small mammals
+mosquitoes
+fruit
+large insects
+fruit
+beetles
+fish
+seeds
+fruit
+seeds
+aquatic insects
+crustaceans
+fruit
+berries
+tree sap
+}
