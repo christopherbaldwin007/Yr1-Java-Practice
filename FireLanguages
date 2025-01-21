@@ -1,0 +1,290 @@
+import org.code.theater.*;
+public class TheaterRunner {
+    public static void main(String[] args) {
+        // Creating an array of Language objects
+        Language[] languages = Language.createLanguages("names.txt", "speakers.txt");
+
+        // Creating a DataScene object
+        languageDatas lang = new languageDatas(languages);
+
+        // Calculating the number of languages with more than 100 million speakers
+        double threshold = 10;
+        int numLanguages = lang.getNumLanguages(threshold);
+
+        // Drawing the result on the scene
+        lang.drawResult(threshold, numLanguages);
+//plays scene...
+      Theater.playScenes(lang);
+    }
+}
+import org.code.theater.*;
+public class languageDatas extends Scene {
+    private Language[] languages;
+
+    public languageDatas(Language[] languages) {
+        this.languages = languages;
+    }
+
+    public int getNumLanguages(double threshold) {
+        int count = 0;
+        for (Language language : languages) {
+            if (language.getSpeakers() > threshold) {
+                count++;
+            }
+        }
+        return count;
+    }
+//Drawimage of fires and text for speakers
+    public void drawResult(double threshold, int numLanguages) {
+        // Example code to draw an image named "fire.png" at a random location
+
+      // // int count = numLanguages;
+      // // while(count > 0){x
+      //       int randomX = (int) (Math.random() * getWidth());
+      //       int randomY = (int) (Math.random() * getHeight());
+      //       drawImage("fire.png", randomX, randomY, 100);
+      // // count=count+100;
+      // // }
+      // Loop through languages. Decrement count by 1 each loop
+int count = numLanguages;
+while(count > 0){
+    int randomX = (int) (Math.random() * getWidth());
+    int randomY = (int) (Math.random() * getHeight());
+    drawImage("fire.png", randomX, randomY, 100);
+    count--;}
+              
+            drawText("Number of languages with more than " + threshold , 10, 100);
+            drawText("Million speakers: " + numLanguages, 10, 125);
+            drawText("Each Fire Image Represents Languages", 10,175); 
+            drawText("of 1 Million Speakers",10, 200);
+
+              System.out.println("Number of languages with more than " + threshold + " million speakers: " + numLanguages);
+
+    }
+    
+}
+public class Language {
+    private String name;
+    private double speakers;
+
+    public Language(String name, double speakers) {
+        this.name = name;
+        this.speakers = speakers;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getSpeakers() {
+        return speakers;
+    }
+
+    public static Language[] createLanguages(String namesFile, String speakersFile) {
+        // Read data from files and create Language objectsString[] fireNames = FileReader.toStringArray(namesFile);
+        String[] speakersStrings = FileReader.toStringArray(speakersFile);
+        Double[] speakers = new Double[speakersStrings.length];
+        for (int ix = 0; ix < speakersStrings.length; ix++) {
+            speakers[ix] = Double.parseDouble(speakersStrings[ix]);
+        }
+        String[] names = FileReader.toStringArray(namesFile);
+        Language[] languageDatas = new Language[names.length];
+
+        for (int index = 0; index < names.length; index++) {
+            languageDatas[index] = new Language(names[index], speakers[index]);
+        }
+
+        return languageDatas;
+    }
+
+
+    public String toString() {
+        return name + " - " + speakers + " million speakers";
+    }
+}
+{names.txt
+Mandarin Chinese
+Spanish
+English
+Hindi (Sanskritised Hindustani)[9]
+Bengali
+Portuguese
+Russian
+Japanese
+Western Punjabi[10]
+Marathi
+Telugu
+Wu Chinese
+Turkish
+Korean
+French
+German
+Vietnamese
+Tamil
+Yue Chinese
+Urdu (Persianised Hindustani)[9]
+Javanese
+Italian
+Egyptian Arabic
+Gujarati
+Iranian Persian
+Bhojpuri
+Min Nan Chinese
+Hakka Chinese
+Jin Chinese
+Hausa
+Kannada
+Indonesian (Indonesian Malay)
+Polish
+Yoruba
+Xiang Chinese
+Malayalam
+Odia
+Maithili
+Burmese
+Eastern Punjabi[10]
+Sunda
+Sudanese Arabic
+Algerian Arabic
+Moroccan Arabic
+Ukrainian
+Igbo
+Northern Uzbek
+Sindhi
+North Levantine Arabic
+Romanian
+Tagalog
+Dutch
+Saʽidi Arabic
+Gan Chinese
+Amharic
+Northern Pashto
+Magahi
+Thai
+Saraiki
+Khmer
+Chhattisgarhi
+Somali
+Malay (Malaysian Malay)
+Cebuano
+Nepali
+Mesopotamian Arabic
+Assamese
+Sinhalese
+Northern Kurdish
+Hejazi Arabic
+Nigerian Fulfulde
+Bavarian
+South Azerbaijani
+Greek
+Chittagonian
+Kazakh
+Deccan
+Hungarian
+Kinyarwanda
+Zulu
+South Levantine Arabic
+Tunisian Arabic
+Sanaani Spoken Arabic
+Min Bei Chinese
+Southern Pashto
+Rundi
+Czech
+Taʽizzi-Adeni Arabic
+Uyghur
+Min Dong Chinese
+Sylheti
+}
+{speakers.txt
+918
+480
+379
+341
+228
+221
+154
+128
+92.7
+83.1
+82
+81.4
+79.4
+77.3
+77.2
+76.1
+76
+75
+73.1
+68.6
+68.3
+64.8
+64.6
+56.4
+52.8
+52.2
+50.1
+48.2
+46.9
+43.9
+43.6
+43.4
+39.7
+37.8
+37.3
+37.1
+34.5
+33.9
+32.9
+32.6
+32.4
+31.9
+29.4
+27.5
+27.3
+27
+25.1
+24.6
+24.6
+24.3
+23.6
+23.1
+22.4
+22.1
+21.9
+20.9
+20.7
+20.7
+20
+16.6
+16.3
+16.2
+16.1
+15.9
+15.8
+15.7
+15.3
+15.3
+14.6
+14.5
+14.5
+14.1
+13.8
+13.1
+13
+12.9
+12.8
+12.6
+12.1
+12.1
+11.6
+11.6
+11.4
+11
+10.9
+10.8
+10.7
+10.5
+10.4
+10.3
+10.3
+}
