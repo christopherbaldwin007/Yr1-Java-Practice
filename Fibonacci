@@ -1,0 +1,33 @@
+public class Fibonacci {
+    public static void main(String[] args) {
+        int max = 15;
+        int[] sequence = new int[max];  // Create the array to hold the sequence of Fibonacci numbers
+
+        // Create the first 2 Fibonacci sequence elements
+        sequence[0] = 0;
+        sequence[1] = 1;
+
+        // Create the Fibonacci sequence and store it in int[] sequence
+        for (int i = 2; i < max; i++) {
+            sequence[i] = sequence[i - 1] + sequence[i - 2];
+        }
+
+        // Print the Fibonacci sequence numbers
+        System.out.print("Fibonacci sequence up to " + max + " terms: ");
+        for (int num : sequence) {
+            System.out.print(num + " ");
+        }
+
+        System.out.println("\nIndex position of 55 is: " + findIndex(sequence, 55));
+    }
+
+    // This method finds the index of an element in an array
+    public static int findIndex(int[] arr, int n) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == n) {
+                return i;
+            }
+        }
+        return -1; // Element not found in the array
+    }
+}
